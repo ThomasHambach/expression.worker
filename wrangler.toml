@@ -1,0 +1,8 @@
+name = "ncalc-worker-init"
+main = "src/index.ts"
+compatibility_date = "2023-01-20"
+node_compat = true
+
+kv_namespaces = [
+  { binding = "KV_EXPRESSIONS", id = "a9e4556fa7eb487bba6f431298218310" }
+]
