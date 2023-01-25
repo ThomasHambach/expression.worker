@@ -51,7 +51,7 @@ export default {
     if (!parsed.hasOwnProperty("data")) {
       return new Response("Your request needs to have the `data` object.");
     }
-    let retBody = "Here's what we go\n";
+    let retBody = "Here's what we got\n";
 
     for (let expression of expressions) {
       try {

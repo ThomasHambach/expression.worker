@@ -2,7 +2,7 @@
 
 ## Description
 
-This repository is a starter-kit to get NCalc running within Cloudflare workers.
+This repository is a starter-kit to get NCalc running within Cloudflare workers. This example uses wrangler instead of miniflare, as `node_compat` is not supported on miniflare at the time of writing.
 
 ## Example
 
@@ -21,16 +21,33 @@ By sending the following `curl` request to the demo worker
 ```
 curl --location --request POST 'https://ncalc-worker-init.thambach.workers.dev' \
 --header 'Content-Type: application/json' \
---data-raw '{"data": {"Apples": 103, "Turnips": 10}}'
+--data-raw '{"data": {"Apples": 12}}'
 ```
 
 You will receive this output
 
 ```
-Here's what we go
-(ERROR): (Balance > 100 AND Matches = 12) (because: Parameter 'Balance' was not defined )
-{}(ERROR): Turnips = 10 AND Apples > 5 (because: Parameter 'Turnips' was not defined )
-{}(MATCH): Apples = 12 OR Turnips = 20
+Here's what we got
+(ERROR): (Turnips > 100 AND Apples = 12) (because: Parameter 'Turnips' was not defined )
+(ERROR): Turnips = 10 AND Apples > 5 (because: Parameter 'Turnips' was not defined )
+(MATCH): Apples = 12 OR Turnips = 20
+```
+
+You may notice that the output above contains (ERROR). However, you should not consider this an actual error. Any expression that has insufficient parameters defined will cause an error. If we were to change our request to:
+
+```
+curl --location --request POST 'https://ncalc-worker-init.thambach.workers.dev' \
+--header 'Content-Type: application/json' \
+--data-raw '{"data": {"Apples": 12, "Turnips": 1000}}'
+```
+
+The output will also show mismatches
+
+```
+Here's what we got
+(MATCH): (Turnips > 100 AND Apples = 12)
+(NO MATCH): Turnips = 10 AND Apples > 5
+(MATCH): Apples = 12 OR Turnips = 20
 ```
 
 ## Usage
@@ -41,7 +58,3 @@ Fork the repository and in your forked repository, add the following action secr
 
 - CF_API_TOKEN
 - CF_ACCOUNT_ID
-
-### Locally
-
-TODO
