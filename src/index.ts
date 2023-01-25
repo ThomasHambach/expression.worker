@@ -24,7 +24,7 @@ export interface Env {
 }
 
 const expressions = [
-  "(Balance > 100 AND Matches = 12)",
+  "(Turnips > 100 AND Apples = 12)",
   "Turnips = 10 AND Apples > 5",
   "Apples = 12 OR Turnips = 20",
 ];
@@ -55,22 +55,10 @@ export default {
 
     for (let expression of expressions) {
       try {
-        // Attempt to get the parsed expression from KV cache
-        let theExpression = null;
-        // const cached = await env.KV_EXPRESSIONS.get(expression);
-        // if (cached) {
-        //   const logical: LogicalExpression = JSON.parse(cached);
-        //   theExpression = new Expression(logical);
-        // } else {
-        theExpression = new Expression(expression, EvaluateOptions.IgnoreCase);
-        //   await env.KV_EXPRESSIONS.put(
-        //     expression,
-        //     JSON.stringify(theExpression)
-        //   );
-        // }
-
-        // retBody += cached ? "(CACHE HIT) " : "(CACHE MISS) ";
-
+        const theExpression = new Expression(
+          expression,
+          EvaluateOptions.IgnoreCase
+        );
         // Cloudflare workers do not support WeakRef, so we need to disable NCalc caching.
         theExpression.Options = EvaluateOptions.NoCache;
         theExpression.Parameters = parsed.data;
@@ -88,7 +76,6 @@ export default {
       } catch (e: any) {
         console.error(e); // Allows you to see the error in worker logs
         retBody += `(ERROR): ${expression} (because: ${e.message})` + "\n";
-        retBody += JSON.stringify(e);
       }
     }
 
