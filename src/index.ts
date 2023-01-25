@@ -57,22 +57,19 @@ export default {
       try {
         // Attempt to get the parsed expression from KV cache
         let theExpression = null;
-        const cached = await env.KV_EXPRESSIONS.get(expression);
-        if (cached) {
-          const logical: LogicalExpression = JSON.parse(cached);
-          theExpression = new Expression(logical);
-        } else {
-          theExpression = new Expression(
-            expression,
-            EvaluateOptions.IgnoreCase
-          );
-          await env.KV_EXPRESSIONS.put(
-            expression,
-            JSON.stringify(theExpression)
-          );
-        }
+        // const cached = await env.KV_EXPRESSIONS.get(expression);
+        // if (cached) {
+        //   const logical: LogicalExpression = JSON.parse(cached);
+        //   theExpression = new Expression(logical);
+        // } else {
+        theExpression = new Expression(expression, EvaluateOptions.IgnoreCase);
+        //   await env.KV_EXPRESSIONS.put(
+        //     expression,
+        //     JSON.stringify(theExpression)
+        //   );
+        // }
 
-        retBody += cached ? "(CACHE HIT) " : "(CACHE MISS) ";
+        // retBody += cached ? "(CACHE HIT) " : "(CACHE MISS) ";
 
         // Cloudflare workers do not support WeakRef, so we need to disable NCalc caching.
         theExpression.Options = EvaluateOptions.NoCache;
