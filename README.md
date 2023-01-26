@@ -4,6 +4,16 @@
 
 This repository is a starter-kit to get NCalc running within Cloudflare workers. This example uses wrangler instead of miniflare, as `node_compat` is not supported on miniflare at the time of writing.
 
+### Why?
+
+An expression parser can be useful for segmentation. One of the main ways is that it allows for the creation of complex and flexible segmentation rules. A segmentation rule is a set of conditions that determine which users or data belong to a particular segment.
+
+With an expression parser, developers can create complex rules by combining multiple conditions and operators. For example, a rule could be created to segment users based on their location, behavior, and purchase history. The expression parser would then parse this rule and determine which users match the conditions, and therefore belong to the segment.
+
+Additionally, an expression parser can also be useful for creating dynamic segments. These segments automatically update based on changing data, such as real-time user behavior. An expression parser would be used to evaluate the conditions in real-time, allowing the segment to update automatically.
+
+Overall, an expression parser enables more granular and accurate segmentation, making it useful for targeted marketing campaigns, personalization, and analytics.
+
 ## Example
 
 There are currently 3 expressions defined inside `src/index.ts` that match apples and turnips.
