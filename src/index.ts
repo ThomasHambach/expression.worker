@@ -9,19 +9,8 @@
  */
 
 import { EvaluateOptions, Expression } from "ncalcjs";
-import { LogicalExpression } from "ncalcjs/dist/NCalc/Domain";
-import { ParameterArgs } from "ncalcjs/dist/NCalc/ParameterArgs";
 
-export interface Env {
-  // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-  KV_EXPRESSIONS: KVNamespace;
-  //
-  // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-  // MY_DURABLE_OBJECT: DurableObjectNamespace;
-  //
-  // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-  // MY_BUCKET: R2Bucket;
-}
+export interface Env {}
 
 const expressions = [
   "(Turnips > 100 AND Apples = 12)",
@@ -30,11 +19,7 @@ const expressions = [
 ];
 
 export default {
-  async fetch(
-    request: Request,
-    env: Env,
-    ctx: ExecutionContext
-  ): Promise<Response> {
+  async fetch(request: Request): Promise<Response> {
     // First we need to validate the request and parse the body
     const { headers } = request;
     const contentType = headers.get("content-type") || "";
