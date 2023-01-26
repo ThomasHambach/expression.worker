@@ -1,4 +1,4 @@
-name = "ncalc-worker-init"
+name = "expression-worker"
 main = "src/index.ts"
 compatibility_date = "2023-01-20"
 node_compat = true

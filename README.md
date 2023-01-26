@@ -1,4 +1,4 @@
-# NCalc Cloudflare Worker Example
+# Cloudflare Worker Expression Parser
 
 ## Description
 
@@ -19,7 +19,7 @@ const expressions = [
 By sending the following `curl` request to the demo worker
 
 ```
-curl --location --request POST 'https://ncalc-worker-init.thambach.workers.dev' \
+curl --location --request POST 'https://expression-worker.thambach.workers.dev' \
 --header 'Content-Type: application/json' \
 --data-raw '{"data": {"Apples": 12}}'
 ```
@@ -36,7 +36,7 @@ Here's what we got
 You may notice that the output above contains (ERROR). However, you should not consider this an actual error. Any expression that has insufficient parameters defined will cause an error. If we were to change our request to:
 
 ```
-curl --location --request POST 'https://ncalc-worker-init.thambach.workers.dev' \
+curl --location --request POST 'https://expression-worker.thambach.workers.dev' \
 --header 'Content-Type: application/json' \
 --data-raw '{"data": {"Apples": 12, "Turnips": 1000}}'
 ```
