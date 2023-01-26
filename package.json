@@ -1,5 +1,5 @@
 {
-  "name": "ncalc.worker.init",
+  "name": "expression.worker",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
